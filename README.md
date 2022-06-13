@@ -44,8 +44,8 @@ provider "aws" {
   region = "us-east-1"
 }
 
-resource "aws_route53_zone" "my_website_com" {
-  name = "my-website.com"
+resource "aws_route53_zone" "neovops_io" {
+  name = "neovops.io"
 }
 
 module "http-redirect" {
@@ -56,7 +56,7 @@ module "http-redirect" {
      "docs.neovops.io" = "neovops.io/docs"
   }
 
-  dns_zone = "neovops.io"
+  dns_zone = aws_route53_zone.neovops_io.name
 
   providers = {
     aws           = aws
