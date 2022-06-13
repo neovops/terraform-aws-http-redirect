@@ -1,4 +1,4 @@
-let redirect_mapping = ${redirect_mapping};
+var redirect_mapping = ${redirect_mapping};
 
 function handler(event) {
   return {
