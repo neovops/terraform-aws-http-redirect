@@ -101,6 +101,7 @@ No modules.
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
+| <a name="input_custom_certificate_domains"></a> [custom\_certificate\_domains](#input\_custom\_certificate\_domains) | Custom certificate domains | `list(string)` | `[]` | no |
 | <a name="input_dns_zone"></a> [dns\_zone](#input\_dns\_zone) | Route53 DNS zone name | `string` | n/a | yes |
 | <a name="input_redirect_mapping"></a> [redirect\_mapping](#input\_redirect\_mapping) | Redirect mapping | `map(string)` | n/a | yes |
 | <a name="input_resources_name"></a> [resources\_name](#input\_resources\_name) | Resources name. Necessary for multiple instances of this module | `string` | `"http-redirect"` | no |

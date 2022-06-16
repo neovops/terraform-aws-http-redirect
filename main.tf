@@ -71,6 +71,10 @@
  * ```
  */
 
+locals {
+  certificate_domains = length(var.custom_certificate_domains) > 0 ? var.custom_certificate_domains : keys(var.redirect_mapping)
+}
+
 data "aws_route53_zone" "zone" {
   name = var.dns_zone
 
@@ -81,11 +85,15 @@ data "aws_route53_zone" "zone" {
 # ACM
 
 resource "aws_acm_certificate" "cert" {
-  domain_name               = keys(var.redirect_mapping)[0]
+  domain_name               = local.certificate_domains[0]
   validation_method         = "DNS"
-  subject_alternative_names = slice(keys(var.redirect_mapping), 1, length(var.redirect_mapping))
+  subject_alternative_names = slice(local.certificate_domains, 1, length(local.certificate_domains))
 
   provider = aws.us-east-1
+
+  lifecycle {
+    create_before_destroy = true
+  }
 }
 
 resource "aws_route53_record" "cert_validation" {
@@ -104,6 +112,8 @@ resource "aws_route53_record" "cert_validation" {
   ttl     = 60
 
   provider = aws.route53
+
+  depends_on = [aws_acm_certificate.cert]
 }
 
 resource "aws_acm_certificate_validation" "cert" {
