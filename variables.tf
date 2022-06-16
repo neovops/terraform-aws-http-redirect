@@ -13,3 +13,9 @@ variable "resources_name" {
   default     = "http-redirect"
   description = "Resources name. Necessary for multiple instances of this module"
 }
+
+variable "custom_certificate_domains" {
+  type        = list(string)
+  default     = []
+  description = "Custom certificate domains"
+}
